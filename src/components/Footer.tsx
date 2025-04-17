@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import GoogleSignIn from "../../../components/GoogleSiginIn";
+import GoogleSignIn from "./GoogleSiginIn";
 
 const Footer = ({
   footerLabel,

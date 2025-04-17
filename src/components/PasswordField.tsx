@@ -4,23 +4,32 @@ import {useState} from "react";
 interface PasswordFieldProps {
   fieldLabel: string;
   value: string;
+  fieldName: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMsg?: string;
   isRequired?: boolean;
-  setFormErrors: React.Dispatch<React.SetStateAction<{ email: string; password: string }>>; 
+  // setFormErrors: React.Dispatch<React.SetStateAction<{ email: string; password: string }>>; 
+  setFormErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>; 
+
 
 }
 
-const PasswordField = ({ fieldLabel, value, onChange, errorMsg ,isRequired=true, setFormErrors}:  PasswordFieldProps) => {
+const PasswordField = ({ fieldLabel, value, fieldName, onChange, errorMsg ,isRequired=true, setFormErrors}:  PasswordFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
     setShowPassword((prev) => !prev);
   };
 
+  // const handleFocus = () => {
+  //   if (errorMsg) {
+  //     setFormErrors((prev) => ({ ...prev, password: '' })); 
+  //   }
+  // };
+
   const handleFocus = () => {
     if (errorMsg) {
-      setFormErrors((prev) => ({ ...prev, password: '' })); 
+      setFormErrors((prev) => ({ ...prev, [fieldName]: '' })); 
     }
   };
 
@@ -32,7 +41,7 @@ const PasswordField = ({ fieldLabel, value, onChange, errorMsg ,isRequired=true,
       <div  className={`common-input flex-center password-input ${errorMsg ? 'input-error' : ''}`}>
       <input
         id="userPwd"
-        name="password"
+        name={fieldName}
         type={showPassword ? "text" : "password"}
         placeholder="*********"
         required={isRequired}

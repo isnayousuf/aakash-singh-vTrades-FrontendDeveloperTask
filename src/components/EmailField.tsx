@@ -1,19 +1,18 @@
-
 interface EmailFieldProps {
   fieldLabel: string;
   placeholderText?: string;
+  fieldName: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMsg?: string;
   isRequired?: boolean;
-  setFormErrors: React.Dispatch<React.SetStateAction<{ email: string; password: string }>>; 
-
+  setFormErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>;
 }
 
-const EmailField = ({ fieldLabel,  placeholderText ='navinash@workhive.com', value, onChange, errorMsg, isRequired=true, setFormErrors }: EmailFieldProps) => {
+const EmailField = ({ fieldLabel,  placeholderText ='navinash@workhive.com', fieldName, value, onChange, errorMsg, isRequired=true, setFormErrors }: EmailFieldProps) => {
   const handleFocus = () => {
     if (errorMsg) {
-      setFormErrors((prev) => ({ ...prev, email: '' })); 
+      setFormErrors((prev) => ({ ...prev, [fieldName]: '' }));
     }
   };
   return (
@@ -24,7 +23,7 @@ const EmailField = ({ fieldLabel,  placeholderText ='navinash@workhive.com', val
       <input
         id="userEmail"
         type="email"
-        name="email"
+        name={fieldName}
         placeholder={placeholderText}
         className={`common-input ${errorMsg ? 'input-error' : ''}`}
         value={value}

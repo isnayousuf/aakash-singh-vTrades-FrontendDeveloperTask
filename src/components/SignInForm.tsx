@@ -1,18 +1,24 @@
 import {useState} from "react";
-import PrimaryButton from "../../components/PrimaryButton";
-import {ErrorMsgs} from "../../constants/constants";
-import {emailRegex, passwordRegex} from "../../utils/validation";
+import PrimaryButton from "./PrimaryButton";
+import {ErrorMsgs} from "../constants/constants";
+import {emailRegex, passwordRegex} from "../utils/validation";
 import {useNavigate} from "react-router-dom";
-import PasswordField from "../../components/PasswordField";
-import EmailField from "../../components/EmailField";
+import PasswordField from "./PasswordField";
+import EmailField from "./EmailField";
 
 export const SignInForm = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({ email: '', password: '' });
-  const [formErrors, setFormErrors] = useState<{ email: string; password: string }>({
+  // const [formErrors, setFormErrors] = useState<{ email: string; password: string }>({
+  //   email: '',
+  //   password: '',
+  // });
+
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({
     email: '',
     password: '',
-  });
+  })
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -90,6 +96,7 @@ export const SignInForm = () => {
       <EmailField
         fieldLabel="Email"
         value={formData.email}
+        fieldName={'email'}
         onChange={handleInputChange}
         errorMsg={formErrors.email}
         setFormErrors={setFormErrors}  // Pass setFormErrors with the correct type
@@ -97,6 +104,7 @@ export const SignInForm = () => {
       <PasswordField
         fieldLabel="Password"
         value={formData.password}
+        fieldName={'password'}
         onChange={handleInputChange}
         errorMsg={formErrors.password}
         setFormErrors={setFormErrors}  // Pass setFormErrors with the correct type
