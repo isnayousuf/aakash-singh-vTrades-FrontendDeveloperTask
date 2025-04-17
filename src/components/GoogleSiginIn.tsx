@@ -1,9 +1,11 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 
 const GoogleSignIn: React.FC = () => {
+  const navigate = useNavigate();
   const onSuccess = (credentialResponse: any) => {
     if (credentialResponse.credential) {
       const decoded: any = jwtDecode(credentialResponse.credential);
@@ -16,6 +18,7 @@ const GoogleSignIn: React.FC = () => {
       // Save to localStorage
       localStorage.setItem('google_token', credentialResponse.credential);
     }
+    navigate('/dashboard');
   };
 
   const onError = () => {
