@@ -1,4 +1,3 @@
-// src/pages/Dashboard.tsx
 import React, { useEffect, useState } from 'react';
 import { fetchUserData } from '../api/mockApi';
 
@@ -38,7 +37,7 @@ const Dashboard: React.FC = () => {
     return (
       <div style={{ textAlign: 'center', marginTop: '50px' }}>
         <p style={{ color: 'red' }}>{error}</p>
-        <button onClick={handleLogout}>Go Back</button>
+        <button onClick={handleLogout}>Logout</button>
       </div>
     );
   }

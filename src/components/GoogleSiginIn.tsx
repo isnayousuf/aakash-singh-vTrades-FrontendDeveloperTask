@@ -28,7 +28,6 @@ const GoogleSignIn: React.FC = () => {
 
   return (
     <div>
-      <h2>Sign in with Google</h2>
       <GoogleLogin
         onSuccess={onSuccess}
         onError={onError}

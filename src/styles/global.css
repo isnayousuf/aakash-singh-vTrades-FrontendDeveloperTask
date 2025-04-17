@@ -1,0 +1,218 @@
+:root {
+ 
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --bg-primary : #212120;
+  --text-primary: #FFF;
+  --text-secondary: #DADADA;
+  --primary-btn-bg: #8854C0;
+  --input-border: #30303D;
+  --input-bg: #1D1E26;
+ 
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.login-page {
+  flex: 1;
+  display: flex;
+  height: 95vh;
+  width: 100%;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  padding: 30px;
+
+
+  .left-side {
+     flex: 1;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* padding-bottom: 20px; */
+    /* background: url('../assets/images/brand-signup.svg') center center/contain no-repeat; */
+    
+    .container-img {
+ 
+      background: url('../assets/images/brand-signup.svg') center/contain no-repeat;
+      height: 100%;
+      /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    }
+  }
+
+  .right-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 60px;
+
+    .right-side-container {
+      width: 385px;
+
+      display: flex;
+      gap: 24px;
+      flex-direction: column;
+      justify-content: center;
+
+     
+
+      .right-side--heading {
+        color: var(--text-primary);
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 150%;
+      }
+  
+      .right-side--sub-heading {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 170%;
+      }
+  
+      .form {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        .form-label {
+          font-size: 12px;
+          line-height: 20px;
+          letter-spacing: -2%;
+          margin: 10px 0;
+        }
+  
+        .input-wrapper {
+          position: relative;
+          display: inline-block;
+
+          .eye-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            /* transform: translateY(-15%); */
+            cursor: pointer;
+          }
+        }  
+        .checkbox-group {
+  
+          .checkbox-field {
+            width: 18px;
+            height: 18px;
+            background-color: var(--text-primary);
+          }
+
+          .form-label {
+            margin: 0;
+          }
+  
+        }
+        
+        
+      }
+
+    }
+
+    
+  }
+
+  .flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .common-input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 0 12px;
+    height: 50px;
+    display: block;
+    border-radius: 10px;
+    color: (var(--text-primary));
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+  }
+
+ 
+  .primary-cta {
+    width: 100%;
+    background-color: var(--primary-btn-bg);
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .mt-24 {
+    margin-top: 24px;
+  }
+
+  .mt-10 {
+    margin-top: 10px;
+  }
+
+  
+
+  button.social {
+    background-color: #333;
+    color: white;
+  }
+
+  
+  .divider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  
+    .divider-text {
+      margin: 0 5px;
+    }
+    .divider-line {
+      /* height: 1px; */
+      width: 50%;
+    }
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox-group input {
+    width: auto;
+    margin-right: 8px;
+  }
+
+  .bottom-link {
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 200%;
+    letter-spacing: 0;
+  }
+
+  .bottom-link a {
+    color: var(--primary-btn-bg);
+    text-decoration: none;
+    margin-left: 8px;
+  }
+
+}
