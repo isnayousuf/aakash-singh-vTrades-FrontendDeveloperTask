@@ -19,6 +19,7 @@
   --primary-btn-bg: #8854C0;
   --input-border: #30303D;
   --input-bg: #1D1E26;
+  --error: #E5484D;
  
 }
 * {
@@ -105,6 +106,8 @@ body {
           position: relative;
           display: inline-block;
 
+
+          /* TODO: Fix the styling of this */
           .eye-icon {
             position: absolute;
             right: 20px;
@@ -151,6 +154,16 @@ body {
     color: (var(--text-primary));
     background-color: var(--input-bg);
     border: 1px solid var(--input-border);
+  }
+
+  .input-error {
+    border: 1px solid var(--error);
+  }
+
+  .error-text {
+    color: var(--error);
+    font-size: 12px;
+    margin-bottom: 10px;
   }
 
  
