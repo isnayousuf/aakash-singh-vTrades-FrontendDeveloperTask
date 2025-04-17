@@ -7,13 +7,21 @@ interface PasswordFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMsg?: string;
   isRequired?: boolean;
+  setFormErrors: React.Dispatch<React.SetStateAction<{ email: string; password: string }>>; 
+
 }
 
-const PasswordField = ({ fieldLabel, value, onChange, errorMsg ,isRequired=true}:  PasswordFieldProps) => {
+const PasswordField = ({ fieldLabel, value, onChange, errorMsg ,isRequired=true, setFormErrors}:  PasswordFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleTogglePassword = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const handleFocus = () => {
+    if (errorMsg) {
+      setFormErrors((prev) => ({ ...prev, password: '' })); 
+    }
   };
 
   return (
@@ -21,23 +29,27 @@ const PasswordField = ({ fieldLabel, value, onChange, errorMsg ,isRequired=true}
       <label htmlFor="userPwd" className="form-label">
         {fieldLabel}
       </label>
+      <div  className={`common-input flex-center password-input ${errorMsg ? 'input-error' : ''}`}>
       <input
         id="userPwd"
+        name="password"
         type={showPassword ? "text" : "password"}
         placeholder="*********"
-        className={`common-input  password-input ${errorMsg ? 'input-error' : ''}`}
         required={isRequired}
         value={value}
         onChange={onChange}
+        onFocus={handleFocus}
+        style={{background: 'transparent', border: 'none', outline: 'none', height: "100%", flex:1}}
       />
     
-      <span onClick={handleTogglePassword} className="eye-icon">
+      <div onClick={handleTogglePassword} className="eye-icon">
         {showPassword ? (
           <EyeOff size={16} strokeWidth={1.3} absoluteStrokeWidth />
         ) : (
           <Eye size={16} strokeWidth={1.3} absoluteStrokeWidth />
         )}
-      </span>
+      </div>
+      </div>
 
       {errorMsg && <p className="error-text">{errorMsg}</p>}
 

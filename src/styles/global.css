@@ -102,20 +102,6 @@ body {
           margin: 10px 0;
         }
   
-        .input-wrapper {
-          position: relative;
-          display: inline-block;
-
-
-          /* TODO: Fix the styling of this */
-          .eye-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            /* transform: translateY(-15%); */
-            cursor: pointer;
-          }
-        }  
         .checkbox-group {
   
           .checkbox-field {
@@ -151,9 +137,27 @@ body {
     height: 50px;
     display: block;
     border-radius: 10px;
-    color: (var(--text-primary));
+    color: var(--text-primary);
     background-color: var(--input-bg);
     border: 1px solid var(--input-border);
+  }
+
+  .password-input  input {
+    color: var(--text-primary);
+  }
+
+  .eye-icon {  
+    width: 40px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .flex-center {
+    display: flex;
+    align-items: center;
   }
 
   .input-error {
