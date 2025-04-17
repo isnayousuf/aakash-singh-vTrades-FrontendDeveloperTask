@@ -1,17 +1,22 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+
 
 const GoogleSignIn: React.FC = () => {
   const onSuccess = (credentialResponse: any) => {
-    console.log('Login', credentialResponse);
-  
-    // Save token in localStorage
     if (credentialResponse.credential) {
+      const decoded: any = jwtDecode(credentialResponse.credential);
+      console.log('Decoded User Info:', decoded);
+  
+      // For example
+      console.log('Name:', decoded.name);
+      console.log('Email:', decoded.email);
+      
+      // Save to localStorage
       localStorage.setItem('google_token', credentialResponse.credential);
-      alert('Login Successful 🎉');
     }
   };
-  
 
   const onError = () => {
     console.log('Login Failed');
