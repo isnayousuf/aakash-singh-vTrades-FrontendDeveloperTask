@@ -1,12 +1,12 @@
 import {useState} from "react";
 import PrimaryButton from "../../components/PrimaryButton";
-import PasswordField from "./components/PasswordField";
 import {ErrorMsgs} from "../../constants/constants";
 import {emailRegex, passwordRegex} from "../../utils/validation";
-import EmailField from "./components/EmailField";
 import {useNavigate} from "react-router-dom";
+import PasswordField from "../../components/PasswordField";
+import EmailField from "../../components/EmailField";
 
-export const LoginForm = () => {
+export const SignInForm = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [formErrors, setFormErrors] = useState<{ email: string; password: string }>({
@@ -105,4 +105,4 @@ export const LoginForm = () => {
     </form>
   );
 };
-export default LoginForm;
+export default SignInForm;
