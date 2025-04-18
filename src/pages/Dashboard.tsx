@@ -26,6 +26,7 @@ const Dashboard: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('google_token');
+    localStorage.setItem("isAuthenticated", "false");
     window.location.href = '/'; 
   };
 

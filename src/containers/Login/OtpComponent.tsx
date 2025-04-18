@@ -4,8 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/PrimaryButton";
 import {ErrorMsgs} from "../../constants/constants";
 import {clearOtpDataFromStorage, generateOTP, saveOtpDataIntoStorage} from "../../utils/otp-utils";
+type OtpFlowType = 'signup' | 'forgot-password';
 
-const OtpComponent = () => {
+interface OtpComponentProps {
+  flowType: OtpFlowType;
+}
+const OtpComponent = ({ flowType }: OtpComponentProps) => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [timeLeft, setTimeLeft] = useState(30); // 30 seconds timer
   const [, setCanResend] = useState(false);
@@ -15,6 +19,7 @@ const OtpComponent = () => {
 
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]); 
 
+  const isForgotPasswordFlow = flowType === 'forgot-password';
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -24,24 +29,6 @@ const OtpComponent = () => {
       setCanResend(true);
     }
   }, [timeLeft]);
-
-  const handleResend = () => {
-    // Clear previous OTP data from localStorage
-    clearOtpDataFromStorage();
-    
-    // Generate a new OTP
-    const otp = generateOTP();
-    console.log("Generated OTP:", otp);  
-  
-    // Save the new OTP to localStorage
-    saveOtpDataIntoStorage(otp);
-    
-    // Reset the timer to 30 seconds and restart the process
-    setTimeLeft(30); 
-    setOtp(Array(6).fill("")); // Clear the OTP inputs
-    inputsRef.current[0]?.focus(); // Focus the first input field
-  };
-
 
   const handleChange = (value: string, index: number) => {
     if (!/^\d*$/.test(value)) return; // Only allow numbers, Todo: move to common file
@@ -83,24 +70,37 @@ const OtpComponent = () => {
     setOtp(newOtp);
   };
 
+  const handleResend = () => {
+    clearOtpDataFromStorage();
+  
+    const newOtp = generateOTP();
+    console.log("Generated OTP:", newOtp);
+  
+    const key = isForgotPasswordFlow ? 'resetPasswordOtp' : 'otp';
+    saveOtpDataIntoStorage(key, newOtp);
+  
+    setTimeLeft(30);
+    setOtp(Array(6).fill(""));
+    inputsRef.current[0]?.focus();
+  };
 
   const handleSubmit = () => {
-    const savedOtp = sessionStorage.getItem("resetPasswordOtp") || sessionStorage.getItem("otp"); 
-    const fullOtp = otp.join(""); // join the otp array into one string
+    const key = isForgotPasswordFlow ? 'resetPasswordOtp' : 'otp';
+    const savedOtp = sessionStorage.getItem(key);
+  
+    const fullOtp = otp.join("");
   
     if (fullOtp === savedOtp) {
-      // Decide where to go
-      const isForgotPasswordFlow = sessionStorage.getItem("resetPasswordOtp") !== null;
-      if (isForgotPasswordFlow) {
-        navigate("/create-new-password");
-      } else {
-        navigate("/dashboard");
-      }
-
-      clearOtpDataFromStorage();  //Removing otp after usage
-
+      navigate(isForgotPasswordFlow ? "/update-password" : "/dashboard");
+      clearOtpDataFromStorage();
     } else {
       setError(ErrorMsgs.INVALID_OTP_ERROR);
+    }
+  };
+
+  const handleFocus = () => {
+    if (error) {
+      setError('');
     }
   };
   
@@ -126,6 +126,7 @@ const OtpComponent = () => {
             onPaste={handlePaste}
             maxLength={1}
             className="otp-box"
+            onFocus={handleFocus}
           />
         ))}
       </div>

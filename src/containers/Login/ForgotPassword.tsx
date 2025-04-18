@@ -39,7 +39,7 @@ const ForgotPassword = () => {
   const closeModal = () => {
     setShowModal(false);
     setTimeout(() => {
-      navigate("/otp");
+      navigate("/otp", { state: { flowType: 'forgot-password' } });
     }, 300);
   }
 

@@ -87,10 +87,9 @@ export const SignInForm = () => {
   };
 
   const handleForgotPasswordRedirection =() => {
-    const existingEmail = localStorage.getItem('userEmail');
-    if (!existingEmail && formData.email) {
+    if (formData.email) {
       localStorage.setItem('userEmail', formData.email);
-    }
+    } 
     navigate('/forgot-password')
   }
 

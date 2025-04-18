@@ -13,6 +13,7 @@ export const SignUpForm = () => {
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({
     email: '',
     password: '',
+    confirmPassword: '',
   })
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -81,9 +82,9 @@ export const SignUpForm = () => {
         // Fake OTP generation
         const otp = generateOTP();
         console.log("Generated OTP:", otp);  
-        saveOtpDataIntoStorage(otp, )
+        saveOtpDataIntoStorage('otp', otp, )
         localStorage.setItem("userEmail", formData.email);
-        navigate("/otp");
+        navigate("/otp",{ state: { flowType: 'signup' } });
       } catch (error) {
         console.error(error);
       } finally {
