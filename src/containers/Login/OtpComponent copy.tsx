@@ -1,9 +1,9 @@
 import { Timer } from "lucide-react";
 import  { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import PrimaryButton from "./PrimaryButton";
-import {clearOtpDataFromStorage, generateOTP, saveOtpDataIntoStorage} from "../utils/otp-utils";
-import {ErrorMsgs} from "../constants/constants";
+import PrimaryButton from "../../components/PrimaryButton";
+import {ErrorMsgs} from "../../constants/constants";
+import {clearOtpDataFromStorage, generateOTP, saveOtpDataIntoStorage} from "../../utils/otp-utils";
 
 const OtpComponent = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
@@ -104,9 +104,10 @@ const OtpComponent = () => {
   return (
     <div>
       <div className="bottom-link mt-10">
-        <Link to="/">Change Email Address</Link>
+        <Link to="/change-email">Change Email Address</Link>
       </div>
 
+  
       <div className="flex-center gap-15 my-15">
         {otp.map((digit, idx) => (
           <input

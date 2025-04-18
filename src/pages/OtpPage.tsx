@@ -1,7 +1,7 @@
 
 import {ContainerWrapper} from "../components/ContainerWrapper"
-import Header from "../components/Header"
-import OtpComponent from "../components/OtpComponent"
+import Header from "../containers/Login/Header"
+import OtpComponent from "../containers/Login/OtpComponent"
 
 const OtpPage = () => {
   return (

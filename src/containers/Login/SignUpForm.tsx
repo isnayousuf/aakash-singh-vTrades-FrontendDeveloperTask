@@ -1,11 +1,11 @@
 import {useState} from "react";
-import PrimaryButton from "./PrimaryButton";
-import {ErrorMsgs} from "../constants/constants";
-import {emailRegex, passwordRegex} from "../utils/validation";
 import {useNavigate} from "react-router-dom";
-import PasswordField from "./PasswordField";
+import PrimaryButton from "../../components/PrimaryButton";
+import {ErrorMsgs} from "../../constants/constants";
+import {generateOTP, saveOtpDataIntoStorage} from "../../utils/otp-utils";
+import {emailRegex, passwordRegex} from "../../utils/validation";
 import EmailField from "./EmailField";
-import {generateOTP, saveOtpDataIntoStorage} from "../utils/otp-utils";
+import PasswordField from "./PasswordField";
 
 export const SignUpForm = () => {
   const navigate = useNavigate()

@@ -1,7 +1,7 @@
 import {ContainerWrapper} from "../components/ContainerWrapper"
-import Footer from "../components/Footer"
-import Header from "../components/Header"
-import SignUpForm from "../components/SignUpForm"
+import Footer from "../containers/Login/Footer"
+import Header from "../containers/Login/Header"
+import SignUpForm from "../containers/Login/SignUpForm"
 
 const SignUp = () => {
   return (
