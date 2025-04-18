@@ -50,7 +50,15 @@ const useForm = ({ initialData, validateField }: UseFormProps) => {
     return isValid;
   };
 
-  return { formData,  setFormData, formErrors, handleInputChange, handleSubmit };
+  const handleFocus = (fieldName: string) => {
+    // When the user clicks inside the input, clear the error message for that field
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      [fieldName]: "", 
+    }));
+  };
+
+  return { formData,  setFormData, formErrors, handleInputChange, handleFocus, handleSubmit };
 };
 
 export default useForm;

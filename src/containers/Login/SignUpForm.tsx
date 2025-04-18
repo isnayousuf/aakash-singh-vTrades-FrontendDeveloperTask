@@ -9,7 +9,7 @@ import {getUserByEmail, storeUser} from "../../utils/index.db";
 
 export const SignUpForm = () => {
   const navigate = useNavigate()
-  const { formData, formErrors, handleInputChange, handleSubmit } = useForm({
+  const { formData, formErrors, handleInputChange, handleSubmit , handleFocus} = useForm({
     initialData: { email: "", password: "", confirmPassword: "" },
     validateField: (fieldName, value) => {
       let error = "";
@@ -81,6 +81,7 @@ export const SignUpForm = () => {
         value={formData.email}
         onChange={handleInputChange}
         errorMsg={formErrors.email}
+        onFocus={handleFocus}
       />
       <CustomInput
         label="Password"
@@ -90,6 +91,7 @@ export const SignUpForm = () => {
         value={formData.password}
         onChange={handleInputChange}
         errorMsg={formErrors.password}
+        onFocus={handleFocus}
       />
         <CustomInput
         label="Confirm Password"
@@ -99,6 +101,7 @@ export const SignUpForm = () => {
         value={formData.confirmPassword}
         onChange={handleInputChange}
         errorMsg={formErrors.confirmPassword}
+        onFocus={handleFocus}
       />
       <PrimaryButton label="Sign Up" onClick={handleSignUp}  />
     </form>

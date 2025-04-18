@@ -13,7 +13,7 @@ import CustomInput from "./CustomInput";
 const UpdatePassword = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { formData, formErrors, handleInputChange, handleSubmit } = useForm({
+  const { formData, formErrors, handleInputChange, handleSubmit, handleFocus } = useForm({
     initialData: { newPassword: "", confirmNewPassword: "" },
     validateField: (fieldName, value) => {
       let error = "";
@@ -77,6 +77,7 @@ const UpdatePassword = () => {
           value={formData.newPassword} 
           onChange={handleInputChange}
           errorMsg={formErrors.newPassword}
+          onFocus={handleFocus}
         />
           <CustomInput
           label="Re-enter your new password"
@@ -86,6 +87,7 @@ const UpdatePassword = () => {
           value={formData.confirmNewPassword} 
           onChange={handleInputChange}
           errorMsg={formErrors.confirmNewPassword}
+          onFocus={handleFocus}
         />
       <PrimaryButton label="Update Password" onClick={handleChangePassword} disabled={disableSubmitCta()} />
     </form>

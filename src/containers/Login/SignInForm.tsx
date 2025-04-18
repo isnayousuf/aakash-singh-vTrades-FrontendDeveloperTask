@@ -14,7 +14,7 @@ export const SignInForm = () => {
   const[hasAccessError, setHasAccessError] = useState(false);
 
   
-  const { formData, formErrors, handleInputChange,handleSubmit, setFormData  } = useForm({
+  const { formData, formErrors, handleInputChange,handleSubmit, setFormData, handleFocus  } = useForm({
     initialData: { email: "", password: "" },
     validateField: (fieldName, value) => {
       let error = "";
@@ -112,6 +112,7 @@ export const SignInForm = () => {
       value={formData.email}
       onChange={handleInputChange}
       errorMsg={formErrors.email}
+      onFocus={handleFocus}
     />
     <CustomInput
       label="Password"
@@ -121,6 +122,7 @@ export const SignInForm = () => {
       value={formData.password}
       onChange={handleInputChange}
       errorMsg={formErrors.password}
+      onFocus={handleFocus}
     />
     <div className="flex-between">
        <div className="checkbox-group">
@@ -129,7 +131,8 @@ export const SignInForm = () => {
           id="remember" 
           className="checkbox-field"
           checked={rememberMe}
-          onChange={handleRememberMeChange} 
+          onChange={handleRememberMeChange}
+       
         />
          <label htmlFor="remember" className="form-label">
            Remember Me

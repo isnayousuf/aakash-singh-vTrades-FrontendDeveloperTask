@@ -17,7 +17,7 @@ const ForgotPassword = () => {
   const [showModal, setShowModal] = useState(false);
   const [hasAccessError, setHasAccessError] = useState(false);
 
-  const { formData, formErrors, handleInputChange, handleSubmit } = useForm({
+  const { formData, formErrors, handleInputChange, handleSubmit , handleFocus} = useForm({
     initialData: { email: "" },
     validateField: (fieldName, value) => {
       let error = "";
@@ -100,6 +100,7 @@ const ForgotPassword = () => {
           value={formData.email}
           onChange={handleInputChange}
           errorMsg={formErrors.email}
+          onFocus={handleFocus}
         />
         <PrimaryButton
           label={"Submit"}

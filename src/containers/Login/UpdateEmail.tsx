@@ -14,7 +14,7 @@ const UpdateEmail = () => {
   const navigate = useNavigate();
   const [hasAccessError, setHasAccessError] = useState(false);
 
-  const { formData, formErrors, handleInputChange, handleSubmit,  } =
+  const { formData, formErrors, handleInputChange, handleSubmit,  handleFocus   } =
     useForm({
       initialData: { email: "" },
       validateField: (fieldName, value) => {
@@ -58,7 +58,7 @@ const UpdateEmail = () => {
 
     try {
       const user = await getUserByEmail(formData.email); 
-      
+
       if (!user) {
         setHasAccessError(true); 
         return;
@@ -94,6 +94,7 @@ const UpdateEmail = () => {
           value={formData.email}
           onChange={handleInputChange}
           errorMsg={formErrors.email}
+          onFocus={handleFocus}
         />
         <PrimaryButton label="Update" onClick={handleUpdateEmail} />
       </form>

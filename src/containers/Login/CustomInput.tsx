@@ -10,8 +10,9 @@ interface CustomInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMsg: string;
   isRequired?: boolean;
+  onFocus:(fieldName:string) => void;
 }
-const CustomInput = ({ label, type, name, placeholderText, value, onChange, errorMsg, ...props }: CustomInputProps) => {
+const CustomInput = ({ label, type, name, placeholderText, value, onChange, onFocus, errorMsg, ...props }: CustomInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const isPasswordField = type === 'password';
@@ -34,8 +35,8 @@ const CustomInput = ({ label, type, name, placeholderText, value, onChange, erro
           placeholder={placeholderText}
           value={value}
           onChange={onChange}
+          onFocus={() => {onFocus(name)}}
           {...props}
-          // style={{background: 'transparent', border: 'none', outline: 'none', height: "100%", flex:1}}
         />
 
         {isPasswordField && (
