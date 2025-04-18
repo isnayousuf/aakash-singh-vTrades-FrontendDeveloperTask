@@ -1,20 +1,31 @@
+// src/pages/Dashboard.tsx
 import React, { useEffect, useState } from 'react';
-import { fetchUserData } from '../api/mockApi';
+import { fetchUserData, fetchRandomProducts } from '../api/mockApi';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import ProductCard from "../components/ProductCard";
 
-interface User {
-  name: string;
-  email: string;
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  image: string;
 }
 
 const Dashboard: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<{ name: string, email: string, profilePic: string } | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    fetchUserData()
+    const userData = fetchUserData();
+    setUser(userData);
+
+    fetchRandomProducts()
       .then((data) => {
-        setUser(data);
+        setProducts(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -25,17 +36,17 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('google_token');
+    localStorage.removeItem('userEmail');
     window.location.href = '/'; 
   };
 
   if (loading) {
-    return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
     return (
-      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <div>
         <p style={{ color: 'red' }}>{error}</p>
         <button type="button" onClick={handleLogout}>Logout</button>
       </div>
@@ -43,15 +54,15 @@ const Dashboard: React.FC = () => {
   }
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Dashboard</h1>
-      <div style={{ border: '1px solid #ccc', padding: '20px', display: 'inline-block' }}>
-        <h2>{user?.name}</h2>
-        <p>{user?.email}</p>
-        <button type="button" onClick={handleLogout} style={{ marginTop: '20px' }}>
-          Logout
-        </button>
+    <div>
+      <Header onLogout={handleLogout} userEmail={user?.email || ""}  profileIcon={user?.profilePic}/>
+      <div className="dashboard-container" >
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} /> 
+      ))}
       </div>
+
+      <Footer />
     </div>
   );
 };

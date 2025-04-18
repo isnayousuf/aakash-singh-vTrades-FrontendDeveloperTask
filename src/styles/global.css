@@ -21,6 +21,7 @@
   --input-border: #30303D;
   --input-bg: #1D1E26;
   --error: #E5484D;
+  --black-bg: #0f0c0c;
  
 }
 * {
@@ -43,7 +44,7 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   padding: 30px;
-
+}
 
   .left-side {
      flex: 1;
@@ -159,6 +160,14 @@ body {
   .flex-center {
     display: flex;
     align-items: center;
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .flex-col {
+    flex-direction: column;
   }
 
   .gap-15 {
@@ -355,6 +364,107 @@ body {
       justify-content: flex-end;
     }
   }
+
+.header {
+  background-color: transparent;
+  color: var(--text-primary);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--input-border);
+
+}
+
+.header .logo {
+  font-family: 'Arial', sans-serif;
+  font-weight: 700; 
+  font-size: 24px; 
+  color: var(--text-primary); 
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+  display: flex;
+  align-items: center;
+
+}
+
+.profile-icon-container {
+  position: relative;
+}
+
+.profile-menu {
+  position: absolute;
+  right: 5px;
+  background-color: #000;
+  padding: 30px 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7); 
+  width: 250px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease; 
+}
+
+.profile-menu.open {
+  opacity: 1;
+  transform: translateY(0); /* Bring the menu into view */
+}
+
+
+.profile-menu-container {
+  display: flex;
+  flex-direction: column;
+  color: var(--text-primary);
+  gap: 24px;
+}
+
+.logout-button {
+  background-color: var(--primary-btn-bg);
+  color: var(--text-primary);
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  border-radius:10px;
+  height: 40px;  
+}
+
+.logout-button:hover, .logout-button:active {
+  background-color: var(--primary-btn-bg);
+  opacity: 0.8;
+}
+
+.dashboard-container {
+  padding: 2em;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  border: 1px solid var(--input-border);
+  background-color: var(--black-bg);
+  padding: 24px;
+  width: 400px;
+  border-radius: 12px;
+  text-align:center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  .product-img {
+    width: 100%;
+    height: 350px;
+    border-radius: 8px;
+  }
   
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  border-top: 2px solid var(--input-border);
 
 }

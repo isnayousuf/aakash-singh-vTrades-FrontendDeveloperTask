@@ -3,7 +3,7 @@ const Header = ({ headerLabel, subHeading }: { headerLabel: string , subHeading?
     <div>
       <h1 className="right-side--heading">{headerLabel}</h1>
       <p className="right-side--sub-heading">
-        {subHeading ?  subHeading : 'Manage your workspace seamlessly. {headerLabel} to continue.'}
+        {subHeading ?  subHeading : `Manage your workspace seamlessly. ${headerLabel} to continue.`}
         
       </p>
     </div>

@@ -1,18 +1,28 @@
-export const fetchUserData = (): Promise<{ name: string; email: string }> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Randomly simulate success or error
-      const shouldFail = Math.random() < 0.1; // 10% chance of failure
+// src/api/mockApi.ts
 
-      if (shouldFail) {
-        reject(new Error('Failed to fetch user data.'));
-      } else {
-        resolve({
-          name: 'Isna Yousuf',
-          email: 'isna@example.com'
-        });
-      }
-    }, 1000); // 1 second delay
-  });
+interface FakeUser {
+  name: string;
+  email: string;
+  profilePic: string;
+}
+
+export const fetchUserData = (): FakeUser => {
+  const email = localStorage.getItem("userEmail") || "user@example.com"; 
+  const fakeName = "John Doe";
+  const fakeProfilePic = "https://randomuser.me/api/portraits/men/1.jpg"; 
+  
+  return { name: fakeName, email, profilePic: fakeProfilePic };
 };
 
+export const fetchRandomProducts = async () => {
+  try {
+    const response = await fetch('https://fakestoreapi.com/products');
+    if (!response.ok) {
+      throw new Error('Failed to fetch products');
+    }
+    const data = await response.json();
+    return data; // Returning the list of products
+  } catch (err:any) {
+    throw new Error(err.message || 'Network error occurred');
+  }
+};
