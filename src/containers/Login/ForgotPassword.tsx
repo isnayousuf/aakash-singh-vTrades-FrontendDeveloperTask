@@ -61,7 +61,7 @@ const ForgotPassword = () => {
       <PrimaryButton label={"Submit"} onClick={handleSubmit} disabled={disableSubmitCta()}/>
 
       {showModal && 
-        <CustomModal showModal={showModal} closeModal={closeModal} modalIcon={<img src={SuccessIcon} />} modalHeading={"Link Sent Successfully!"} modalSubHeading={"Check your inbox! We’ve sent you an email with instructions to reset your password."} ctaLabel={"Okay"} />
+        <CustomModal showModal={showModal} closeModal={closeModal} modalIcon={<img src={SuccessIcon} alt="email sent"/>} modalHeading={"Link Sent Successfully!"} modalSubHeading={"Check your inbox! We’ve sent you an email with instructions to reset your password."} />
       }
     </ContainerWrapper>
   )

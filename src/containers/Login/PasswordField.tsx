@@ -8,7 +8,6 @@ interface PasswordFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errorMsg?: string;
   isRequired?: boolean;
-  // setFormErrors: React.Dispatch<React.SetStateAction<{ email: string; password: string }>>; 
   setFormErrors: React.Dispatch<React.SetStateAction<{ [key: string]: string }>>; 
 
 
@@ -20,12 +19,6 @@ const PasswordField = ({ fieldLabel, value, fieldName, onChange, errorMsg ,isReq
   const handleTogglePassword = () => {
     setShowPassword((prev) => !prev);
   };
-
-  // const handleFocus = () => {
-  //   if (errorMsg) {
-  //     setFormErrors((prev) => ({ ...prev, password: '' })); 
-  //   }
-  // };
 
   const handleFocus = () => {
     if (errorMsg) {

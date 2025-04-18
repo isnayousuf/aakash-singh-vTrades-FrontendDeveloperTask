@@ -7,10 +7,10 @@ interface CustomModalProps  {
   modalIcon: ReactNode,
   modalHeading: string,
   modalSubHeading?: string,
-  ctaLabel: string,
+  ctaLabel?: string,
   }
 
-const CustomModal = ({showModal, closeModal, modalIcon, modalHeading, modalSubHeading, ctaLabel}: CustomModalProps) => {
+const CustomModal = ({showModal, closeModal, modalIcon, modalHeading, modalSubHeading, ctaLabel="Okay"}: CustomModalProps) => {
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // If the user clicks directly on the overlay (not on modal content) close it
     if (e.target === e.currentTarget) {
