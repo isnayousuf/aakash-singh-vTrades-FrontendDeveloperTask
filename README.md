@@ -1,54 +1,57 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite Authentication System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a web application that simulates a **user authentication system** with various features, including **email/password login**, **OTP verification**, and **Google SSO**.
 
-Currently, two official plugins are available:
+## Key Features:
+1. **Sign In**:
+   - Users can sign in using **email/password** or **Google SSO**.
+   - **Password validation** is implemented, and **local/session storage** is used for simulating API responses during development.
+   - After signing in, users are required to complete **OTP verification**. The OTP is retrieved from session storage and the user must fill in the OTP to continue.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. **Change Email**:
+   - Users can change their email address by entering the new email and clicking **Next**.
+   - An OTP is sent to the user's email (simulated using session storage), and the user must enter the OTP to complete the change.
+   - The OTP expires in **30 seconds**, after which users can click **Resend OTP** to receive a new OTP.
 
-## Expanding the ESLint configuration
+3. **Direct OTP Login**:
+   - If the user skips the **Change Email** step and enters the OTP directly, they will be logged into the **Dashboard**.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+4. **Forgot Password**:
+   - Users can click the **Forgot Password** link on the sign-in page.
+   - They are prompted to fill in their **email** and click **Continue**.
+   - After submitting, a success **modal** is displayed, and the user is redirected to the **OTP page** (OTP retrieved from session storage).
+   - On entering the OTP, the user will be redirected to the **Create New Password** page, where they can reset their password. Clicking **Continue** logs them in.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+5. **Google Sign-In**:
+   - Users can also sign in using **Google OAuth** for a quick and simple login process.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+6. **Signup**:
+   - New users can sign up by entering their **email**, **password**, and **confirm password**.
+   - After clicking **Continue**, the user is redirected to the **OTP page**, where they need to enter the OTP (from session storage) to complete the sign-up.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+7. **Pre-fill Email**:
+   - For **Forgot Password** and **Change Email**, the user's email is pre-filled in the input fields if available.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+8. **Dashboard**:
+   - Upon logging in, users are redirected to the **Dashboard**, where data is fetched from the **Fake Store API** to display simulated product information.
+   - The user’s profile is shown in the header, and clicking it gives the option to **log out**.
+
+---
+
+## Installation
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/your-username/your-project.git
+   cd your-project
+
+2. **Install dependencies:**:
+
+   ```bash
+   npm install
+
+3. **Start the development server:**:
+
+   ```bash
+   npm run dev
