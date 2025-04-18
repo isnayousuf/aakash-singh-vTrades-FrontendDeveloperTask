@@ -169,10 +169,22 @@ body {
     border: 1px solid var(--input-border);
   }
 
-  .password-input  input {
+  .common-input input {
+    flex: 1;
     color: var(--text-primary);
+    height: 100%;
+    outline: none;
+    border: none;
+    background-color: var(--input-bg);
   }
 
+  .common-input input:hover, .common-input input:focus {
+    outline: none;
+    border: none;
+    background-color: var(--input-bg);
+  }
+
+  
   .eye-icon {  
     width: 40px;
     height: 100%;
