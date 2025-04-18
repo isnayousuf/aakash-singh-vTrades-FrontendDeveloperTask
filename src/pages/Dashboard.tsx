@@ -26,7 +26,6 @@ const Dashboard: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('google_token');
-    localStorage.setItem("isAuthenticated", "false");
     window.location.href = '/'; 
   };
 
@@ -38,7 +37,7 @@ const Dashboard: React.FC = () => {
     return (
       <div style={{ textAlign: 'center', marginTop: '50px' }}>
         <p style={{ color: 'red' }}>{error}</p>
-        <button onClick={handleLogout}>Logout</button>
+        <button type="button" onClick={handleLogout}>Logout</button>
       </div>
     );
   }
@@ -49,7 +48,7 @@ const Dashboard: React.FC = () => {
       <div style={{ border: '1px solid #ccc', padding: '20px', display: 'inline-block' }}>
         <h2>{user?.name}</h2>
         <p>{user?.email}</p>
-        <button onClick={handleLogout} style={{ marginTop: '20px' }}>
+        <button type="button" onClick={handleLogout} style={{ marginTop: '20px' }}>
           Logout
         </button>
       </div>

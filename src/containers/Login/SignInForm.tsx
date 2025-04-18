@@ -120,7 +120,7 @@ export const SignInForm = () => {
          </div>
          
          <div className="bottom-link">
-            <button onClick={handleForgotPasswordRedirection} className="link-button">
+            <button type="button" onClick={handleForgotPasswordRedirection} className="link-button">
             Forgot Password?
             </button>
           </div>

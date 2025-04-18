@@ -1,15 +1,11 @@
 import { Timer } from "lucide-react";
 import  { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/PrimaryButton";
 import {ErrorMsgs} from "../../constants/constants";
 import {clearOtpDataFromStorage, generateOTP, saveOtpDataIntoStorage} from "../../utils/otp-utils";
-type OtpFlowType = 'signup' | 'forgot-password';
 
-interface OtpComponentProps {
-  flowType: OtpFlowType;
-}
-const OtpComponent = ({ flowType }: OtpComponentProps) => {
+const OtpComponent = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [timeLeft, setTimeLeft] = useState(30); // 30 seconds timer
   const [, setCanResend] = useState(false);
@@ -18,6 +14,8 @@ const OtpComponent = ({ flowType }: OtpComponentProps) => {
   const navigate = useNavigate();
 
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]); 
+  const location = useLocation();
+  const flowType = location.state?.flowType;
 
   const isForgotPasswordFlow = flowType === 'forgot-password';
 
@@ -144,7 +142,7 @@ const OtpComponent = ({ flowType }: OtpComponentProps) => {
           </div>
         ) : (
           <div className="bottom-link">
-            <button onClick={handleResend} className="link-button">
+            <button type="button" onClick={handleResend} className="link-button">
               Resend OTP
             </button>
           </div>
