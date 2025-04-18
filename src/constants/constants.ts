@@ -5,3 +5,5 @@ export enum ErrorMsgs {
   CONFIRM_PASSWORD_ERROR = 'Oops! Passwords Don’t Match',
   INVALID_OTP_ERROR = 'Invalid OTP. Please try again.',
 } 
+
+export const CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;

@@ -227,7 +227,6 @@ body {
 
  
   .primary-cta {
-
     background-color: var(--primary-btn-bg);
     color: var(--text-primary);
     font-weight: 600;
@@ -505,4 +504,24 @@ body {
   text-align: center;
   border-top: 2px solid var(--input-border);
 
+}
+
+/* google text bg styling */
+.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb {
+  justify-content: center !important;
+}
+
+
+.nsm7Bb-HzV7m-LgbsSe.MFS4be-JaPV2b-Ia7Qfc, .nsm7Bb-HzV7m-LgbsSe  {
+  background-color: var(--input-bg) !important;
+  border: 1px solid var(--input-border) !important;
+}
+
+/* google icon bg styling */
+.nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+  background-color: transparent !important;
+}
+
+.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+  flex-grow: unset;
 }
