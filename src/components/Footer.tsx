@@ -18,7 +18,7 @@ const Footer = ({
       <GoogleSignIn />
 
       <div className="bottom-link mt-10">
-        Don't have an account? <Link to={redirectionLink}>{footerLabel}</Link>
+        Don't have an account? <Link to={redirectionLink} className="ml-4">{footerLabel}</Link>
       </div>
     </div>
   );

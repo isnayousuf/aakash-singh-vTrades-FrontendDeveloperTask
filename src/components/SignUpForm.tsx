@@ -26,12 +26,18 @@ export const SignUpForm = () => {
 
     if (isSubmitted) {
       validateField(name, value);
+  
+      // Special case: If password changes, revalidate confirmPassword too
+      if (name === "password" && formData.confirmPassword) {
+        validateField("confirmPassword", formData.confirmPassword);
+      }
     }
+  
   };
 
   const validateField = (fieldName: string, value: string) => {
     let error = "";
-
+  
     if (!value) {
       error = `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)} is required`;
     } else {
@@ -41,39 +47,47 @@ export const SignUpForm = () => {
       if (fieldName === "password" && !passwordRegex.test(value)) {
         error = ErrorMsgs.PASSWORD_ERROR;
       }
+      if (fieldName === "confirmPassword") {
+        if (value !== formData.password) {
+          error = ErrorMsgs.CONFIRM_PASSWORD_ERROR;
+        }
+      }
     }
-
+  
     setFormErrors((prev) => ({
       ...prev,
       [fieldName]: error,
     }));
   };
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
-
+  
     let isValid = true;
-
+  
     Object.entries(formData).forEach(([fieldName, value]) => {
       validateField(fieldName, value);
       if (!value || formErrors[fieldName as keyof typeof formErrors]) {
         isValid = false;
       }
     });
-
+  
     if (isValid) {
       console.log("on Success", formData);
-
+  
       try {
         setLoading(true);
-
+  
         // Fake API-like behavior
         await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        // On Success
-        localStorage.setItem("isAuthenticated", "true");
-        navigate("/dashboard");
+  
+        // Simulate sending OTP to user's email
+        console.log('Sending OTP to:', formData.email);
+  
+        // Redirect to OTP page
+        navigate("/otp");
       } catch (error) {
         console.error(error);
       } finally {
@@ -81,6 +95,7 @@ export const SignUpForm = () => {
       }
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit}>

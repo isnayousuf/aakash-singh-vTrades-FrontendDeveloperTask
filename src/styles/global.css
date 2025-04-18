@@ -16,6 +16,7 @@
   --bg-primary : #212120;
   --text-primary: #FFF;
   --text-secondary: #DADADA;
+  --text-tertiary: #A0A0A0;
   --primary-btn-bg: #8854C0;
   --input-border: #30303D;
   --input-bg: #1D1E26;
@@ -160,6 +161,14 @@ body {
     align-items: center;
   }
 
+  .gap-15 {
+    gap: 15px;
+  }
+
+  .gap-6 {
+    gap: 6px;
+  }
+
   .input-error {
     border: 1px solid var(--error);
   }
@@ -184,6 +193,15 @@ body {
 
   .mt-10 {
     margin-top: 10px;
+  }
+
+  .my-15 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .ml-4 {
+    margin-left: 4px;
   }
 
   
@@ -219,7 +237,6 @@ body {
   }
 
   .bottom-link {
-    text-align: center;
     font-size: 0.75rem;
     font-weight: 400;
     line-height: 200%;
@@ -229,7 +246,24 @@ body {
   .bottom-link a {
     color: var(--primary-btn-bg);
     text-decoration: none;
-    margin-left: 8px;
+  }
+
+  .timer-text {
+    font-size: 14px;
+    letter-spacing: -2%;
+    line-height: 20px;
+    color: var(--text-tertiary);
+  }
+
+  .otp-box {
+    width: 46px;
+    height: 48px;
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid var(--input-border);
+    background: transparent;
+    border-radius: 8px;
+    color: var(--text-primary);
   }
 
 }
