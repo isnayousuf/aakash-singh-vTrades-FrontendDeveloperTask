@@ -55,3 +55,37 @@ This project is a web application that simulates a **user authentication system*
 
    ```bash
    npm run dev
+
+## Technologies Used
+
+- **React**: The front-end UI is built using React.
+- **TypeScript**: Static typing using TypeScript for better maintainability.
+- **Vite**: The development environment is powered by Vite for fast builds and hot module reloading.
+- **Google OAuth**: For signing in via Google SSO.
+- **Fake Store API**: Used to simulate the fetching of product data in the dashboard.
+- **CSS**: For styling the app, including responsive layouts.
+
+---
+
+## Running in Production
+
+To build the app for production, run:
+
+```bash
+npm run build
+
+
+---
+
+## Deployed App
+
+The app has been deployed and is live!  
+ [**Preview the App**](https://aakash-singh-v-trades-frontend-developer-task-eta.vercel.app/)
+
+---
+## Notes
+
+- The app uses **sessionStorage** and **localStorage** for OTP management and simulating API responses.
+- Make sure to configure your **Google OAuth client ID** and any other environment variables for production deployment.
+
+---
