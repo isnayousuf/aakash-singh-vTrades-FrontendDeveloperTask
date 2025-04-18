@@ -36,6 +36,31 @@ body {
   background-color: var(--bg-primary);
 }
 
+.loader-container {
+  min-height: 98vh;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary-btn-bg); 
+}
+
+.spinner {
+  width: 80px;
+  height: 80px;
+  animation: spin 1s linear infinite;
+}
+
+/* CUSTOM LOADING ANIMATION */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .login-page {
   flex: 1;
   display: flex;
@@ -196,6 +221,13 @@ body {
     font-weight: 600;
   }
 
+  .primary-cta:hover, .primary-cta:focus, .primary-cta:active {
+    background: var(--primary-btn-bg);
+    opacity: 0.8;
+    border: none;
+    outline: none;
+  }
+
   .w-100 {
     width: 100%;
   }
@@ -226,12 +258,6 @@ body {
     margin-left: 4px;
   }
 
-  
-
-  button.social {
-    background-color: #333;
-    color: white;
-  }
 
   
   .divider {

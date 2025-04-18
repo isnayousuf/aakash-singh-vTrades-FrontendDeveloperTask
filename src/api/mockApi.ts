@@ -1,17 +1,13 @@
-// src/api/mockApi.ts
-
 interface FakeUser {
-  name: string;
   email: string;
   profilePic: string;
 }
 
 export const fetchUserData = (): FakeUser => {
   const email = localStorage.getItem("userEmail") || "user@example.com"; 
-  const fakeName = "John Doe";
-  const fakeProfilePic = "https://randomuser.me/api/portraits/men/1.jpg"; 
+  const fakeProfilePic = "https://randomuser.me/api/portraits/women/3.jpg";  //To get a fake profile pic
   
-  return { name: fakeName, email, profilePic: fakeProfilePic };
+  return {  email, profilePic: fakeProfilePic };
 };
 
 export const fetchRandomProducts = async () => {
@@ -21,8 +17,12 @@ export const fetchRandomProducts = async () => {
       throw new Error('Failed to fetch products');
     }
     const data = await response.json();
-    return data; // Returning the list of products
-  } catch (err:any) {
-    throw new Error(err.message || 'Network error occurred');
+    return data; 
+  }  catch (err) {
+    if (err instanceof Error) {
+      throw new Error(err.message || 'Network error occurred');
+    } else {
+      console.error("Unexpected error", err);
+    }
   }
 };

@@ -27,7 +27,7 @@ const CustomModal = ({showModal, closeModal, modalIcon, modalHeading, modalSubHe
             <p className="modal-heading">{modalHeading}</p>
             {modalSubHeading && <p className="modal-text">{modalSubHeading}</p>}
             <div className="cta-container">
-             <PrimaryButton label={ctaLabel} onClick={closeModal} isFullWidth={false} />
+              <PrimaryButton label={ctaLabel} onClick={closeModal} isFullWidth={false} />
             </div>
           </div>
         </div>

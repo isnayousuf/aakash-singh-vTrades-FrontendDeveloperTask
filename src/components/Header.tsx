@@ -2,12 +2,12 @@ import { useState, useEffect, useRef } from 'react';
 import ProfileDetailsPopup from './ProfileDetailsPopup';
 
 interface HeaderProps {
-  onLogout: () => void;
+  onLogout: () => void;  
   userEmail: string;
   profileIcon: string | undefined;
 }
 
-const Header = ({ onLogout, userEmail, profileIcon }: HeaderProps) => {
+const Header = ({ onLogout,  userEmail, profileIcon }: HeaderProps) => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,7 +21,7 @@ const Header = ({ onLogout, userEmail, profileIcon }: HeaderProps) => {
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (profileMenuRef.current && !profileMenuRef.current.contains(e.target as Node)) {
-        setIsProfileMenuOpen(false); // Close the menu if clicked outside
+        setIsProfileMenuOpen(false); 
       }
     };
 

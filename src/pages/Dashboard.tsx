@@ -1,9 +1,12 @@
 // src/pages/Dashboard.tsx
-import React, { useEffect, useState } from 'react';
-import { fetchUserData, fetchRandomProducts } from '../api/mockApi';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import React, { useEffect, useState } from "react";
+import { fetchUserData, fetchRandomProducts } from "../api/mockApi";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
+import Loader from "../components/Loader";
+import CustomModal from "../components/CustomModal";
+import {AlertTriangle} from "lucide-react";
 
 interface Product {
   id: number;
@@ -14,52 +17,76 @@ interface Product {
 }
 
 const Dashboard: React.FC = () => {
-  const [user, setUser] = useState<{ name: string, email: string, profilePic: string } | null>(null);
+  const [user, setUser] = useState<{
+    email: string;
+    profilePic: string;
+  } | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   useEffect(() => {
-    const userData = fetchUserData();
-    setUser(userData);
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const userData = await fetchUserData();
+        setUser(userData);
 
-    fetchRandomProducts()
-      .then((data) => {
-        setProducts(data);
+        const productData = await fetchRandomProducts();
+        setProducts(productData);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Something went wrong while loading data.';
+        setError(errorMessage);
+        setShowErrorModal(true); 
         setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError(err.message || 'Something went wrong.');
+        
+      } finally {
         setLoading(false);
-      });
+       
+      }
+    };
+
+    loadData();
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('userEmail');
-    window.location.href = '/'; 
+    localStorage.removeItem("userEmail");
+    window.location.href = "/";
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
+  //We can have a custom error handler in the middleware to show errors 
   if (error) {
     return (
-      <div>
-        <p style={{ color: 'red' }}>{error}</p>
-        <button type="button" onClick={handleLogout}>Logout</button>
-      </div>
+      <CustomModal
+        showModal={showErrorModal}
+        closeModal={() => {
+          setShowErrorModal(false);
+          window.location.reload(); 
+        }}
+        modalIcon={<AlertTriangle color="#E5484D" style={{width: "80px", height:"80px"}}/>}
+        modalHeading="Oops! Something went wrong."
+        modalSubHeading={error} 
+        ctaLabel="Retry"
+      />
     );
   }
 
   return (
     <div>
-      <Header onLogout={handleLogout} userEmail={user?.email || ""}  profileIcon={user?.profilePic}/>
-      <div className="dashboard-container" >
-      {products.map((product) => (
-        <ProductCard key={product.id} product={product} /> 
-      ))}
+      <Header
+        onLogout={handleLogout}
+        userEmail={user?.email || ""}
+        profileIcon={user?.profilePic}
+      />
+      <div className="dashboard-container">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
 
       <Footer />
