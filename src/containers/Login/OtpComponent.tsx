@@ -83,16 +83,22 @@ const OtpComponent = () => {
     setOtp(newOtp);
   };
 
- 
- 
+
   const handleSubmit = () => {
-    const savedOtp = localStorage.getItem("otp");
-  
-    const fullOtp = otp.join("");  // join the otp array into one string
+    const savedOtp = sessionStorage.getItem("resetPasswordOtp") || sessionStorage.getItem("otp"); 
+    const fullOtp = otp.join(""); // join the otp array into one string
   
     if (fullOtp === savedOtp) {
-      clearOtpDataFromStorage();
-      navigate("/dashboard");
+      // Decide where to go
+      const isForgotPasswordFlow = sessionStorage.getItem("resetPasswordOtp") !== null;
+      if (isForgotPasswordFlow) {
+        navigate("/create-new-password");
+      } else {
+        navigate("/dashboard");
+      }
+
+      clearOtpDataFromStorage();  //Removing otp after usage
+
     } else {
       setError(ErrorMsgs.INVALID_OTP_ERROR);
     }

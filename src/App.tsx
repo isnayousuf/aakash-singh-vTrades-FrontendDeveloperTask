@@ -6,6 +6,7 @@ import OtpPage from "./pages/OtpPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import UpdateEmail from "./containers/Login/UpdateEmail";
+import ForgotPassword from "./containers/Login/ForgotPassword";
 
 const App: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const App: React.FC = () => {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/otp" element={<OtpPage />} />
         <Route path="/update-email" element={<UpdateEmail />} />
-
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </Router>
   );

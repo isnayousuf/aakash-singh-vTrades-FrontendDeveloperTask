@@ -5,6 +5,7 @@ import EmailField from "./EmailField";
 import {emailRegex} from "../../utils/validation";
 import {ContainerWrapper} from "../../components/ContainerWrapper";
 import Header from "./Header";
+import {updateEmailInStorage} from "../../utils/otp-utils";
 
 const UpdateEmail = () => {
   const [email, setEmail] = useState('');
@@ -25,13 +26,9 @@ const UpdateEmail = () => {
       return;
     }
 
-    // Save new email in localStorage
-    localStorage.setItem('newEmail', email);
-
+    updateEmailInStorage(email);
     // Simulate sending OTP to the new email
     console.log(`OTP sent to ${email}`);
-
-    // Redirect to OTP screen
     navigate('/otp');
   };
 

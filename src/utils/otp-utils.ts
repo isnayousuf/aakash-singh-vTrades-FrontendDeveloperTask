@@ -3,10 +3,16 @@ export const generateOTP = () => {
 };
 
 export const clearOtpDataFromStorage = () => {
-  localStorage.removeItem("otp");
+  sessionStorage.removeItem("otp");
+  sessionStorage.removeItem("resetPasswordOtp"); 
   localStorage.removeItem("userEmail");
 }
 
 export const saveOtpDataIntoStorage = (otp: string) => {
-   localStorage.setItem("otp", otp);
+   sessionStorage.setItem("otp", otp);
+}
+
+export const updateEmailInStorage = (newEmail:string) => {
+  localStorage.removeItem('userEmail');
+  localStorage.setItem('newEmail', newEmail);
 }

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import PrimaryButton from "../../components/PrimaryButton";
 import {ErrorMsgs} from "../../constants/constants";
 import {emailRegex, passwordRegex} from "../../utils/validation";
@@ -9,11 +9,6 @@ import PasswordField from "./PasswordField";
 export const SignInForm = () => {
   const navigate = useNavigate()
   const [formData, setFormData] = useState({ email: '', password: '' });
-  // const [formErrors, setFormErrors] = useState<{ email: string; password: string }>({
-  //   email: '',
-  //   password: '',
-  // });
-
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({
     email: '',
     password: '',
@@ -57,7 +52,6 @@ export const SignInForm = () => {
     }));
   };
 
-  // Handle submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
@@ -82,6 +76,7 @@ export const SignInForm = () => {
 
         // Success
         localStorage.setItem("isAuthenticated", "true");
+        localStorage.setItem("userEmail", formData.email)
         navigate("/dashboard");
       } catch (error) {
         console.error(error);
@@ -91,6 +86,14 @@ export const SignInForm = () => {
     }
   };
 
+  const handleForgotPasswordRedirection =() => {
+    const existingEmail = localStorage.getItem('userEmail');
+    if (!existingEmail && formData.email) {
+      localStorage.setItem('userEmail', formData.email);
+    }
+    navigate('/forgot-password')
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <EmailField
@@ -99,7 +102,7 @@ export const SignInForm = () => {
         fieldName={'email'}
         onChange={handleInputChange}
         errorMsg={formErrors.email}
-        setFormErrors={setFormErrors}  // Pass setFormErrors with the correct type
+        setFormErrors={setFormErrors} 
       />
       <PasswordField
         fieldLabel="Password"
@@ -107,8 +110,22 @@ export const SignInForm = () => {
         fieldName={'password'}
         onChange={handleInputChange}
         errorMsg={formErrors.password}
-        setFormErrors={setFormErrors}  // Pass setFormErrors with the correct type
+        setFormErrors={setFormErrors}  
       />
+      <div className="flex-between">
+         <div className="checkbox-group">
+           <input type="checkbox" id="remember" className="checkbox-field" />
+           <label htmlFor="remember" className="form-label">
+             Remember Me
+           </label>
+         </div>
+         
+         <div className="bottom-link">
+            <button onClick={handleForgotPasswordRedirection} className="link-button">
+            Forgot Password?
+            </button>
+          </div>
+       </div>
       <PrimaryButton label="Sign In" onClick={handleSubmit} disabled={loading} />
     </form>
   );
