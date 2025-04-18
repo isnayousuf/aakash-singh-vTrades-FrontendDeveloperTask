@@ -99,15 +99,12 @@ const OtpComponent = () => {
   };
   
 
-
-
   return (
     <div>
       <div className="bottom-link mt-10">
-        <Link to="/change-email">Change Email Address</Link>
+        <Link to="/update-email">Change Email Address</Link>
       </div>
 
-  
       <div className="flex-center gap-15 my-15">
         {otp.map((digit, idx) => (
           <input

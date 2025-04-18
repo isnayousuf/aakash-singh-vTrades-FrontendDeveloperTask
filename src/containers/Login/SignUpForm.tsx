@@ -121,7 +121,7 @@ export const SignUpForm = () => {
         errorMsg={formErrors.confirmPassword}
         setFormErrors={setFormErrors} 
       />
-      <PrimaryButton label="Sign In" onClick={handleSubmit} disabled={loading} />
+      <PrimaryButton label="Sign Up" onClick={handleSubmit} disabled={loading} />
     </form>
   );
 };
