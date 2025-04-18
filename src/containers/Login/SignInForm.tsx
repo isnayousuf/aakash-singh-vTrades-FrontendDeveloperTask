@@ -5,10 +5,13 @@ import {emailRegex, passwordRegex} from "../../utils/validation";
 import useForm from "../../hooks/useForm";
 import CustomInput from "./CustomInput";
 import {useEffect, useState} from "react";
+import {getUserByEmail} from "../../utils/index.db";
+import AccessError from "../../components/AccessError";
 
 export const SignInForm = () => {
   const navigate = useNavigate()
   const [rememberMe, setRememberMe] = useState(false);
+  const[hasAccessError, setHasAccessError] = useState(false);
 
   
   const { formData, formErrors, handleInputChange,handleSubmit, setFormData  } = useForm({
@@ -44,18 +47,22 @@ export const SignInForm = () => {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-  
-    const isValid = handleSubmit(e);  
-  
+
+    const isValid = handleSubmit(e);
+
     if (!isValid) {
       console.log("Form has errors. Cannot submit.");
       return;
     }
-  
+
     try {
-      // Fake API-like behavior
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-  
+      const user = await getUserByEmail(formData.email);
+      if (!user || user.password !== formData.password) {
+        setHasAccessError(true)
+        console.log("No user registered with this email or incorrect password");
+        return;
+      }
+
       localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("userEmail", formData.email);
 
@@ -64,7 +71,7 @@ export const SignInForm = () => {
       } else {
         localStorage.removeItem("rememberedEmail");
       }
-      
+
       navigate("/dashboard");
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -80,9 +87,23 @@ export const SignInForm = () => {
     navigate('/forgot-password')
   }
 
+  const handleRememberMeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setRememberMe(isChecked);
+
+    // If unchecked, remove the email from localStorage
+    if (!isChecked) {
+      localStorage.removeItem("rememberedEmail");
+    }
+  };
+
 
   return (
     <form onSubmit={handleSignIn}>
+      {hasAccessError &&   
+        <AccessError />    
+      }
+
     <CustomInput
       label="Email Address"
       type="email"
@@ -108,7 +129,7 @@ export const SignInForm = () => {
           id="remember" 
           className="checkbox-field"
           checked={rememberMe}
-          onChange={(e) => setRememberMe(e.target.checked)} 
+          onChange={handleRememberMeChange} 
         />
          <label htmlFor="remember" className="form-label">
            Remember Me

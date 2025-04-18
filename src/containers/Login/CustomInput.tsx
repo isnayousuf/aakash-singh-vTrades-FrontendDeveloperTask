@@ -1,4 +1,4 @@
-import {Eye, EyeOff} from "lucide-react";
+import {CircleAlert, Eye, EyeOff} from "lucide-react";
 import React, {useState} from "react";
 
 interface CustomInputProps {
@@ -49,7 +49,10 @@ const CustomInput = ({ label, type, name, placeholderText, value, onChange, erro
         )}
       </div>
 
-      {errorMsg && <p className="error-text">{errorMsg}</p>}
+      {errorMsg && <p className="error-text">
+        <CircleAlert className="error-icon" size={16} strokeWidth={1.5} absoluteStrokeWidth />
+        <span>{errorMsg}</span>
+        </p>}
     </div>
   );
 };

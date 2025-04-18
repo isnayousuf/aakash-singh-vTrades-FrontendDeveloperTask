@@ -51,6 +51,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
     localStorage.removeItem("userEmail");
     window.location.href = "/";
   };

@@ -1,4 +1,4 @@
-import React, { useEffect,  } from "react";
+import React, { useEffect, useState,  } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "../../components/PrimaryButton";
 import { emailRegex } from "../../utils/validation";
@@ -7,9 +7,12 @@ import Header from "./Header";
 import { updateEmailInStorage } from "../../utils/otp-utils";
 import useForm from "../../hooks/useForm";
 import CustomInput from "./CustomInput";
+import {getUserByEmail} from "../../utils/index.db";
+import AccessError from "../../components/AccessError";
 
 const UpdateEmail = () => {
   const navigate = useNavigate();
+  const [hasAccessError, setHasAccessError] = useState(false);
 
   const { formData, formErrors, handleInputChange, handleSubmit,  } =
     useForm({
@@ -43,7 +46,7 @@ const UpdateEmail = () => {
     }
   }, [handleInputChange]);
 
-  const handleUpdateEmail = (e: React.FormEvent) => {
+  const handleUpdateEmail = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const isValid = handleSubmit(e);
@@ -53,8 +56,23 @@ const UpdateEmail = () => {
       return;
     }
 
-    updateEmailInStorage(formData.email);
-    console.log(`OTP sent to ${formData.email}`);
+    try {
+      const user = await getUserByEmail(formData.email); 
+      
+      if (!user) {
+        setHasAccessError(true); 
+        return;
+      }
+
+      setHasAccessError(false);
+      updateEmailInStorage(formData.email);
+
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      setHasAccessError(true);
+    }
+
+   
     navigate("/otp");
   };
   return (
@@ -65,6 +83,9 @@ const UpdateEmail = () => {
       />
 
       <form onSubmit={handleUpdateEmail}>
+      {hasAccessError &&   
+        <AccessError />    
+      }
         <CustomInput
           label="New Email Address"
           type="email"

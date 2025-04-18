@@ -5,6 +5,7 @@ import {generateOTP, saveOtpDataIntoStorage} from "../../utils/otp-utils";
 import {emailRegex, passwordRegex} from "../../utils/validation";
 import CustomInput from "./CustomInput";
 import useForm from "../../hooks/useForm";
+import {getUserByEmail, storeUser} from "../../utils/index.db";
 
 export const SignUpForm = () => {
   const navigate = useNavigate()
@@ -31,28 +32,42 @@ export const SignUpForm = () => {
     },
   });
   
- 
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const isValid = handleSubmit(e);
-  
+
     if (!isValid) {
       console.log("Form has errors. Cannot submit sign up.");
       return;
     }
-  
+
     try {
-      // Fake OTP generation
+      // Check if email already exists (for sign-up, email shouldn't exist)
+      const existingUser = await getUserByEmail(formData.email);
+      if (existingUser) {
+        console.log("User already registered with this email");
+        return;
+      }
+
+      // Store user credentials in IndexedDB
+      await storeUser(formData.email, formData.password);
+
+      // Fake OTP generation (this part is already implemented in your code)
       const otp = generateOTP();
-      console.log("Generated OTP:", otp);  
+      console.log("Generated OTP:", otp);
       saveOtpDataIntoStorage('otp', otp);
+
+      // Store email in localStorage for later use (in case of navigating to OTP)
       localStorage.setItem("userEmail", formData.email);
       navigate("/otp", { state: { flowType: 'signup' } });
+
     } catch (error) {
       console.error(error);
     }
   };
+
   
 
   return (

@@ -20,7 +20,7 @@
   --primary-btn-bg: #8854C0;
   --input-border: #30303D;
   --input-bg: #1D1E26;
-  --error: #E5484D;
+  --error: #D33C43;
   --black-bg: #0f0c0c;
  
 }
@@ -222,7 +222,17 @@ body {
   .error-text {
     color: var(--error);
     font-size: 12px;
+    vertical-align: middle;
+    display: flex;
+    gap: 3px;
     margin-bottom: 10px;
+
+    .error-icon {
+      fill: var(--error);
+      stroke: var(--bg-primary);
+      stroke-width: 2;
+      margin-top: 1px;
+    }
   }
 
  
