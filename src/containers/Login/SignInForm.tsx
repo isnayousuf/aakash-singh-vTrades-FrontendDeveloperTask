@@ -4,11 +4,14 @@ import {ErrorMsgs} from "../../constants/constants";
 import {emailRegex, passwordRegex} from "../../utils/validation";
 import useForm from "../../hooks/useForm";
 import CustomInput from "./CustomInput";
+import {useEffect, useState} from "react";
 
 export const SignInForm = () => {
   const navigate = useNavigate()
+  const [rememberMe, setRememberMe] = useState(false);
+
   
-  const { formData, formErrors, handleInputChange,handleSubmit  } = useForm({
+  const { formData, formErrors, handleInputChange,handleSubmit, setFormData  } = useForm({
     initialData: { email: "", password: "" },
     validateField: (fieldName, value) => {
       let error = "";
@@ -28,6 +31,16 @@ export const SignInForm = () => {
     },
   });
 
+  useEffect(() => {
+    const rememberedEmail = localStorage.getItem("rememberedEmail");
+    if (rememberedEmail) {
+      setFormData((prev) => ({
+        ...prev,
+        email: rememberedEmail,
+      }));
+      setRememberMe(true);
+    }
+  }, []);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,14 +52,19 @@ export const SignInForm = () => {
       return;
     }
   
-    console.log("Form is valid, proceeding with sign-in logic...");
-  
     try {
       // Fake API-like behavior
       await new Promise((resolve) => setTimeout(resolve, 2000));
   
       localStorage.setItem("isAuthenticated", "true");
       localStorage.setItem("userEmail", formData.email);
+
+      if (rememberMe) {
+        localStorage.setItem("rememberedEmail", formData.email);
+      } else {
+        localStorage.removeItem("rememberedEmail");
+      }
+      
       navigate("/dashboard");
     } catch (error) {
       console.error("Sign-in error:", error);
@@ -85,7 +103,13 @@ export const SignInForm = () => {
     />
     <div className="flex-between">
        <div className="checkbox-group">
-         <input type="checkbox" id="remember" className="checkbox-field" />
+         <input 
+          type="checkbox" 
+          id="remember" 
+          className="checkbox-field"
+          checked={rememberMe}
+          onChange={(e) => setRememberMe(e.target.checked)} 
+        />
          <label htmlFor="remember" className="form-label">
            Remember Me
          </label>

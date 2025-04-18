@@ -10,14 +10,30 @@ const OtpComponent = () => {
   const [timeLeft, setTimeLeft] = useState(30); // 30 seconds timer
   const [, setCanResend] = useState(false);
   const [error, setError] = useState('');
+  const [isFetching, setIsFetching] = useState(true); 
 
   const navigate = useNavigate();
-
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]); 
   const location = useLocation();
   const flowType = location.state?.flowType;
-
   const isForgotPasswordFlow = flowType === 'forgot-password';
+
+
+  //Autofill otp from the session storage
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const key = isForgotPasswordFlow ? 'resetPasswordOtp' : 'otp';
+      const storedOtp = sessionStorage.getItem(key);
+      if (storedOtp && storedOtp.length === 6) {
+        const otpArray = storedOtp.split("");
+        setOtp(otpArray);
+        inputsRef.current[otpArray.length - 1]?.focus();
+      }
+      setIsFetching(false); 
+    }, 700); 
+
+    return () => clearTimeout(timer);
+  }, [isForgotPasswordFlow]);
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -29,20 +45,18 @@ const OtpComponent = () => {
   }, [timeLeft]);
 
   const handleChange = (value: string, index: number) => {
-    if (!/^\d*$/.test(value)) return; // Only allow numbers, Todo: move to common file
+    if (!/^\d*$/.test(value)) return; // Only allow numbers
 
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Focus next box if user types
     if (value && index < 5) {
       const nextInput = document.getElementById(`otp-${index + 1}`);
       nextInput?.focus();
     }
   };
 
-   //Allow user to delete the otp
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === "Backspace") {
       if (!otp[index] && index > 0) {
@@ -51,11 +65,10 @@ const OtpComponent = () => {
     }
   };
 
-  //Allow user to paste in boxes directly
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const pasteData = e.clipboardData.getData("text").slice(0, 6);
-    if (!/^\d+$/.test(pasteData)) return; // Todo: Move this to common file
+    if (!/^\d+$/.test(pasteData)) return;
 
     const pasteArray = pasteData.split("");
     const newOtp = [...otp];
@@ -70,13 +83,12 @@ const OtpComponent = () => {
 
   const handleResend = () => {
     clearOtpDataFromStorage();
-  
     const newOtp = generateOTP();
     console.log("Generated OTP:", newOtp);
-  
+
     const key = isForgotPasswordFlow ? 'resetPasswordOtp' : 'otp';
     saveOtpDataIntoStorage(key, newOtp);
-  
+
     setTimeLeft(30);
     setOtp(Array(6).fill(""));
     inputsRef.current[0]?.focus();
@@ -85,9 +97,8 @@ const OtpComponent = () => {
   const handleSubmit = () => {
     const key = isForgotPasswordFlow ? 'resetPasswordOtp' : 'otp';
     const savedOtp = sessionStorage.getItem(key);
-  
     const fullOtp = otp.join("");
-  
+
     if (fullOtp === savedOtp) {
       navigate(isForgotPasswordFlow ? "/update-password" : "/dashboard");
       clearOtpDataFromStorage();
@@ -101,7 +112,6 @@ const OtpComponent = () => {
       setError('');
     }
   };
-  
 
   return (
     <div>
@@ -109,26 +119,32 @@ const OtpComponent = () => {
         <Link to="/update-email">Change Email Address</Link>
       </div>
 
-      <div className="flex-center gap-15 my-15">
-        {otp.map((digit, idx) => (
-          <input
-            key={idx}
-            ref={(el) => {
-              inputsRef.current[idx] = el;
-            }}
-            id={`otp-${idx}`}
-            type="text"
-            value={digit}
-            onChange={(e) => handleChange(e.target.value, idx)}
-            onKeyDown={(e) => handleKeyDown(e, idx)}
-            onPaste={handlePaste}
-            maxLength={1}
-            className="otp-box"
-            onFocus={handleFocus}
-          />
-        ))}
-      </div>
-
+      {isFetching && 
+        <div className="flex-center my-15">
+          <p className="text-gray-500">Just a moment, getting your OTP...</p>
+        </div>
+     }  
+     
+        <div className="flex-center gap-15 my-15">
+          {otp.map((digit, idx) => (
+            <input
+              key={idx}
+              ref={(el) => {
+                inputsRef.current[idx] = el;
+              }}
+              id={`otp-${idx}`}
+              type="text"
+              value={digit}
+              onChange={(e) => handleChange(e.target.value, idx)}
+              onKeyDown={(e) => handleKeyDown(e, idx)}
+              onPaste={handlePaste}
+              maxLength={1}
+              className="otp-box"
+              onFocus={handleFocus}
+            />
+          ))}
+        </div>
+   
       <div className="flex-center gap-6">
         {timeLeft > 0 ? (
           <div className="flex-center gap-6">
@@ -152,7 +168,6 @@ const OtpComponent = () => {
       {error && <p className="error-text mt-5">{error}</p>}
 
       <PrimaryButton label="Continue" onClick={handleSubmit} />
-
     </div>
   );
 };

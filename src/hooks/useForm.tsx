@@ -50,7 +50,7 @@ const useForm = ({ initialData, validateField }: UseFormProps) => {
     return isValid;
   };
 
-  return { formData, formErrors, handleInputChange, handleSubmit };
+  return { formData,  setFormData, formErrors, handleInputChange, handleSubmit };
 };
 
 export default useForm;

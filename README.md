@@ -19,7 +19,7 @@ This project is a web application that simulates a **user authentication system*
 4. **Forgot Password**:
    - Users can click the **Forgot Password** link on the sign-in page.
    - They are prompted to fill in their **email** and click **Continue**.
-   - After submitting, a success **modal** is displayed, and the user is redirected to the **OTP page** (OTP retrieved from session storage).
+   - After submitting, a success **modal** is displayed, and the user is redirected to the **OTP page** (OTP  auto-retrieved with a delay from session storage).
    - On entering the OTP, the user will be redirected to the **Create New Password** page, where they can reset their password. Clicking **Continue** logs them in.
 
 5. **Google Sign-In**:
