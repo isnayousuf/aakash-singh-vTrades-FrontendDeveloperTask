@@ -67,25 +67,25 @@ This project is a web application that simulates a **user authentication system*
 
 ---
 
-## Running in Production
+## Deployment  
 
-To build the app for production, run:
-
-```bash
-npm run build
-
+To preview the project: [Preview the App](https://aakash-singh-v-trades-frontend-developer-task-eta.vercel.app/) 
 
 ---
 
-## Deployed App
-
-The app has been deployed and is live!  
- [**Preview the App**](https://aakash-singh-v-trades-frontend-developer-task-eta.vercel.app/)
-
----
 ## Notes
 
 - The app uses **sessionStorage** and **localStorage** for OTP management and simulating API responses.
 - Make sure to configure your **Google OAuth client ID** and any other environment variables for production deployment.
 
 ---
+
+## Contributing  
+
+Contributions are welcome! Feel free to fork this repository, create a feature branch, and submit a pull request.
+
+---
+
+## License  
+
+This project is licensed under the MIT License.
