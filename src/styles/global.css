@@ -13,7 +13,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --bg-primary : #212120;
+  --bg-primary : #1F2129;
   --text-primary: #FFF;
   --text-secondary: #DADADA;
   --text-tertiary: #A0A0A0;
@@ -181,10 +181,14 @@ body {
 
  
   .primary-cta {
-    width: 100%;
+
     background-color: var(--primary-btn-bg);
     color: var(--text-primary);
     font-weight: 600;
+  }
+
+  .w-100 {
+    width: 100%;
   }
 
   .disabled-cta {
@@ -307,15 +311,15 @@ body {
   
   .modal-content {
     background: var(--bg-primary);
-    padding: 2rem;
-    border-radius: 12px;
+    padding: 3rem ;
+    border-radius: 10px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 24px;
-    max-width: 400px;
+    max-width: 500px;
     width: 90%;
 
     .modal-icon-container {
@@ -343,6 +347,12 @@ body {
       line-height: 150%;
       letter-spacing: 0;
       color: var(--text-secondary);
+    }
+
+    .cta-container {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
     }
   }
   

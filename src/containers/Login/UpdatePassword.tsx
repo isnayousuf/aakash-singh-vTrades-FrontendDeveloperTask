@@ -91,13 +91,16 @@ const UpdatePassword = () => {
     }
   };
   
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  
+  const redirectToSigninPage =()=> {
     setTimeout(() => {
       navigate("/");
     }, 300);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    redirectToSigninPage();
+   
   }
 
   const disableSubmitCta = () => {
