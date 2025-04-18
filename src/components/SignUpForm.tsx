@@ -5,6 +5,7 @@ import {emailRegex, passwordRegex} from "../utils/validation";
 import {useNavigate} from "react-router-dom";
 import PasswordField from "./PasswordField";
 import EmailField from "./EmailField";
+import {generateOTP, saveOtpDataIntoStorage} from "../utils/otp-utils";
 
 export const SignUpForm = () => {
   const navigate = useNavigate()
@@ -75,18 +76,13 @@ export const SignUpForm = () => {
     });
   
     if (isValid) {
-      console.log("on Success", formData);
-  
       try {
         setLoading(true);
-  
-        // Fake API-like behavior
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-  
-        // Simulate sending OTP to user's email
-        console.log('Sending OTP to:', formData.email);
-  
-        // Redirect to OTP page
+        // Fake OTP generation
+        const otp = generateOTP();
+        console.log("Generated OTP:", otp);  
+        saveOtpDataIntoStorage(otp, )
+        localStorage.setItem("userEmail", formData.email);
         navigate("/otp");
       } catch (error) {
         console.error(error);

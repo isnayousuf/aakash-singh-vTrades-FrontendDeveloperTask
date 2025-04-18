@@ -1,12 +1,47 @@
 import { Timer } from "lucide-react";
-import  { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import  { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "./PrimaryButton";
+import {clearOtpDataFromStorage, generateOTP, saveOtpDataIntoStorage} from "../utils/otp-utils";
+import {ErrorMsgs} from "../constants/constants";
 
 const OtpComponent = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
-  const timeToWait = '30s';
-  const inputsRef = useRef<(HTMLInputElement | null)[]>([]); // refs for inputs
+  const [timeLeft, setTimeLeft] = useState(30); // 30 seconds timer
+  const [, setCanResend] = useState(false);
+  const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+
+  const inputsRef = useRef<(HTMLInputElement | null)[]>([]); 
+
+
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timerId = setTimeout(() => setTimeLeft((prev) => prev - 1), 1000);
+      return () => clearTimeout(timerId);
+    } else {
+      setCanResend(true);
+    }
+  }, [timeLeft]);
+
+  const handleResend = () => {
+    // Clear previous OTP data from localStorage
+    clearOtpDataFromStorage();
+    
+    // Generate a new OTP
+    const otp = generateOTP();
+    console.log("Generated OTP:", otp);  
+  
+    // Save the new OTP to localStorage
+    saveOtpDataIntoStorage(otp);
+    
+    // Reset the timer to 30 seconds and restart the process
+    setTimeLeft(30); 
+    setOtp(Array(6).fill("")); // Clear the OTP inputs
+    inputsRef.current[0]?.focus(); // Focus the first input field
+  };
+
 
   const handleChange = (value: string, index: number) => {
     if (!/^\d*$/.test(value)) return; // Only allow numbers, Todo: move to common file
@@ -49,10 +84,22 @@ const OtpComponent = () => {
   };
 
  
-  const handleSubmit =() => {
-    const fullOtp = otp.join("");
-    console.log(fullOtp);
-  }
+ 
+  const handleSubmit = () => {
+    const savedOtp = localStorage.getItem("otp");
+  
+    const fullOtp = otp.join("");  // join the otp array into one string
+  
+    if (fullOtp === savedOtp) {
+      clearOtpDataFromStorage();
+      navigate("/dashboard");
+    } else {
+      setError(ErrorMsgs.INVALID_OTP_ERROR);
+    }
+  };
+  
+
+
 
   return (
     <div>
@@ -80,9 +127,26 @@ const OtpComponent = () => {
       </div>
 
       <div className="flex-center gap-6">
-        <Timer size={16} color="#A0A0A0" strokeWidth={1.25} absoluteStrokeWidth />
-        <p className="timer-text">{timeToWait}</p>
+        {timeLeft > 0 ? (
+          <div className="flex-center gap-6">
+            <Timer
+              size={16}
+              color="#A0A0A0"
+              strokeWidth={1.25}
+              absoluteStrokeWidth
+            />
+            <p className="timer-text">{`${timeLeft}s`}</p>
+          </div>
+        ) : (
+          <div className="bottom-link">
+            <button onClick={handleResend} className="link-button">
+              Resend OTP
+            </button>
+          </div>
+        )}
       </div>
+
+      {error && <p className="error-text mt-5">{error}</p>}
 
       <PrimaryButton label="Continue" onClick={handleSubmit} />
 

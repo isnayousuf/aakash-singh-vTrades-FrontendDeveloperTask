@@ -191,6 +191,10 @@ body {
     margin-top: 24px;
   }
 
+  .mt-5 {
+    margin-top: 5px;
+  }
+
   .mt-10 {
     margin-top: 10px;
   }
@@ -246,6 +250,22 @@ body {
   .bottom-link a {
     color: var(--primary-btn-bg);
     text-decoration: none;
+  }
+
+  .bottom-link .link-button {
+    color: var(--primary-btn-bg);
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline: none;
+  }
+
+  .bottom-link .link-button:hover, .bottom-link .link-button:focus {
+    color: var(--primary-btn-bg);
+    background: transparent;
+    border: none;
+    outline: none;
   }
 
   .timer-text {
