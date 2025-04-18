@@ -58,15 +58,6 @@ This project is a web application that simulates a **user authentication system*
    ```bash
    npm run dev
 
-4. **Login using email/password:**
-
- - To Login on local using email and password use the credentials below
-    
-   ```bash
-
-      Email: admin@admin.in
-      Password: admin123
-      
 ## Technologies Used
 
 - **React**: The front-end UI is built using React.
