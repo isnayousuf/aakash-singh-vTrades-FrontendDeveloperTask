@@ -29,8 +29,10 @@ This project is a web application that simulates a **user authentication system*
    - New users can sign up by entering their **email**, **password**, and **confirm password**.
    - After clicking **Continue**, the user is redirected to the **OTP page**, where they need to enter the OTP (from session storage) to complete the sign-up.
 
-7. **Pre-fill Email**:
+7. **Pre-fill Email and Remember Me**:
    - For **Forgot Password** and **Change Email**, the user's email is pre-filled in the input fields if available.
+
+   -There is also an option to remember the email in the sigin page
 
 8. **Dashboard**:
    - Upon logging in, users are redirected to the **Dashboard**, where data is fetched from the **Fake Store API** to display simulated product information.
